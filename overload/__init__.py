@@ -21,10 +21,10 @@ def overload(f: Callable):
         for sig, func in overloaded[f.__name__].items():
             if (len(all_args) == len(sig.parameters)
                 and all(
-                    par.annotation is Any
-                    or par.annotation is par.empty
-                    or (isinstance(arg, par.annotation)
-                        for par, arg in zip(sig.parameters.values(), all_args))
+                    (par.annotation is Any)
+                    or (par.annotation is par.empty)
+                    or (isinstance(arg, par.annotation))
+                    for par, arg in zip(sig.parameters.values(), all_args)
             )):
                 return func(*args, **kwargs)
         raise TypeError('No function with this signature exists')
